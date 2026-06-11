@@ -1,0 +1,16 @@
+name: decodosenet-therapy-web
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10
+  - pandas=2.2
+  - numpy=1.26
+  - rdkit
+  - pip
+  - pip:
+      - fastapi==0.111.0
+      - uvicorn[standard]==0.30.1
+      - transformers==4.41.2
+      - tokenizers==0.19.1
+      - torch==2.3.1

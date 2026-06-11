@@ -1,0 +1,179 @@
+<svg width="1280" height="820" viewBox="0 0 1280 820" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="legendGrad" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#e0f2fe"/>
+      <stop offset="28%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#2dd4bf"/>
+      <stop offset="65%" stop-color="#a3e635"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+    <style>
+      .cn { font-family: Arial, "Microsoft YaHei", sans-serif; }
+      .title { font-size: 34px; font-weight: 900; fill: #0b2540; }
+      .sub { font-size: 17px; font-weight: 700; fill: #486174; }
+      .metric-label { font-size: 17px; font-weight: 800; fill: #486174; }
+      .metric-value { font-size: 44px; font-weight: 900; fill: #0b2540; }
+      .metric-note { font-size: 14px; font-weight: 700; fill: #6b7d8d; }
+      .axis { font-size: 16px; font-weight: 800; fill: #334155; }
+      .tick { font-size: 14px; font-weight: 700; fill: #475569; }
+      .small { font-size: 15px; font-weight: 700; fill: #475569; }
+      .panel-title { font-size: 20px; font-weight: 900; fill: #0b2540; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="820" fill="#edf6f8"/>
+  <rect x="38" y="34" width="1204" height="752" rx="16" fill="#ffffff" stroke="#c6dbe4" filter="url(#softShadow)"/>
+
+  <text class="cn title" x="76" y="88">剂量响应分析</text>
+  <rect x="1018" y="56" width="176" height="38" rx="19" fill="#e9fbf8" stroke="#b8ece4"/>
+  <text class="cn small" x="1040" y="81" fill="#0f766e">模型预测响应强度</text>
+  <text class="cn sub" x="78" y="124">8×8 对数剂量扫描，颜色表示模型预测抑制响应。</text>
+
+  <g>
+    <rect x="76" y="152" width="268" height="120" rx="10" fill="#f8fbfd" stroke="#c7dce5"/>
+    <text class="cn metric-label" x="96" y="184">当前剂量预测响应</text>
+    <text class="cn metric-value" x="96" y="234">0.031</text>
+    <text class="cn metric-note" x="96" y="257">当前输入剂量组合</text>
+
+    <rect x="362" y="152" width="268" height="120" rx="10" fill="#f8fbfd" stroke="#c7dce5"/>
+    <text class="cn metric-label" x="382" y="184">扫描范围内最高预测响应</text>
+    <text class="cn metric-value" x="382" y="234">0.723</text>
+    <text class="cn metric-note" x="382" y="257">8×8 扫描范围内最高值</text>
+
+    <rect x="648" y="152" width="268" height="120" rx="10" fill="#f8fbfd" stroke="#c7dce5"/>
+    <text class="cn metric-label" x="668" y="184">预测响应提升幅度</text>
+    <text class="cn metric-value" x="668" y="234">0.691</text>
+    <text class="cn metric-note" x="668" y="257">最高预测响应 - 当前响应</text>
+
+    <rect x="934" y="152" width="268" height="120" rx="10" fill="#f8fbfd" stroke="#c7dce5"/>
+    <text class="cn metric-label" x="954" y="184">高响应候选点</text>
+    <text class="cn metric-value" x="954" y="234">32 个</text>
+    <text class="cn metric-note" x="954" y="257">预测响应 ≥ 0.65</text>
+  </g>
+
+  <rect x="76" y="300" width="774" height="374" rx="12" fill="#f8fafc" stroke="#c7dce5"/>
+  <text class="cn panel-title" x="106" y="334">对数剂量热图</text>
+
+  <text class="cn axis" x="342" y="648">药物 A 剂量 (uM)</text>
+  <text class="cn axis" transform="translate(116,566) rotate(-90)">药物 B 剂量 (uM)</text>
+
+  <g transform="translate(168,356)">
+    <rect x="0" y="0" width="560" height="256" fill="#ffffff" stroke="#0f172a" stroke-width="1.6"/>
+    <!-- row 1: high dose B -->
+    <rect x="0" y="0" width="70" height="32" fill="#22c55e" stroke="#ffffff" stroke-width="2"/>
+    <rect x="70" y="0" width="70" height="32" fill="#22c55e" stroke="#ffffff" stroke-width="2"/>
+    <rect x="140" y="0" width="70" height="32" fill="#1fae54" stroke="#ffffff" stroke-width="2"/>
+    <rect x="210" y="0" width="70" height="32" fill="#1fae54" stroke="#ffffff" stroke-width="2"/>
+    <rect x="280" y="0" width="70" height="32" fill="#18984a" stroke="#ffffff" stroke-width="2"/>
+    <rect x="350" y="0" width="70" height="32" fill="#18984a" stroke="#ffffff" stroke-width="2"/>
+    <rect x="420" y="0" width="70" height="32" fill="#15803d" stroke="#ffffff" stroke-width="2"/>
+    <rect x="490" y="0" width="70" height="32" fill="#0f6b36" stroke="#ffffff" stroke-width="2"/>
+
+    <rect x="0" y="32" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="70" y="32" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="140" y="32" width="70" height="32" fill="#22c55e" stroke="#ffffff" stroke-width="2"/>
+    <rect x="210" y="32" width="70" height="32" fill="#22c55e" stroke="#ffffff" stroke-width="2"/>
+    <rect x="280" y="32" width="70" height="32" fill="#1fae54" stroke="#ffffff" stroke-width="2"/>
+    <rect x="350" y="32" width="70" height="32" fill="#1fae54" stroke="#ffffff" stroke-width="2"/>
+    <rect x="420" y="32" width="70" height="32" fill="#18984a" stroke="#ffffff" stroke-width="2"/>
+    <rect x="490" y="32" width="70" height="32" fill="#15803d" stroke="#ffffff" stroke-width="2"/>
+
+    <rect x="0" y="64" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="70" y="64" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="140" y="64" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="210" y="64" width="70" height="32" fill="#a3e635" stroke="#ffffff" stroke-width="2"/>
+    <rect x="280" y="64" width="70" height="32" fill="#a3e635" stroke="#ffffff" stroke-width="2"/>
+    <rect x="350" y="64" width="70" height="32" fill="#22c55e" stroke="#ffffff" stroke-width="2"/>
+    <rect x="420" y="64" width="70" height="32" fill="#22c55e" stroke="#ffffff" stroke-width="2"/>
+    <rect x="490" y="64" width="70" height="32" fill="#1fae54" stroke="#ffffff" stroke-width="2"/>
+
+    <rect x="0" y="96" width="70" height="32" fill="#7dd3fc" stroke="#ffffff" stroke-width="2"/>
+    <rect x="70" y="96" width="70" height="32" fill="#7dd3fc" stroke="#ffffff" stroke-width="2"/>
+    <rect x="140" y="96" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="210" y="96" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="280" y="96" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="350" y="96" width="70" height="32" fill="#a3e635" stroke="#ffffff" stroke-width="2"/>
+    <rect x="420" y="96" width="70" height="32" fill="#a3e635" stroke="#ffffff" stroke-width="2"/>
+    <rect x="490" y="96" width="70" height="32" fill="#22c55e" stroke="#ffffff" stroke-width="2"/>
+
+    <rect x="0" y="128" width="70" height="32" fill="#7dd3fc" stroke="#ffffff" stroke-width="2"/>
+    <rect x="70" y="128" width="70" height="32" fill="#7dd3fc" stroke="#ffffff" stroke-width="2"/>
+    <rect x="140" y="128" width="70" height="32" fill="#67e8f9" stroke="#ffffff" stroke-width="2"/>
+    <rect x="210" y="128" width="70" height="32" fill="#67e8f9" stroke="#ffffff" stroke-width="2"/>
+    <rect x="280" y="128" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="350" y="128" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="420" y="128" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="490" y="128" width="70" height="32" fill="#a3e635" stroke="#ffffff" stroke-width="2"/>
+
+    <rect x="0" y="160" width="70" height="32" fill="#bae6fd" stroke="#ffffff" stroke-width="2"/>
+    <rect x="70" y="160" width="70" height="32" fill="#bae6fd" stroke="#ffffff" stroke-width="2"/>
+    <rect x="140" y="160" width="70" height="32" fill="#7dd3fc" stroke="#ffffff" stroke-width="2"/>
+    <rect x="210" y="160" width="70" height="32" fill="#7dd3fc" stroke="#ffffff" stroke-width="2"/>
+    <rect x="280" y="160" width="70" height="32" fill="#67e8f9" stroke="#ffffff" stroke-width="2"/>
+    <rect x="350" y="160" width="70" height="32" fill="#67e8f9" stroke="#ffffff" stroke-width="2"/>
+    <rect x="420" y="160" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+    <rect x="490" y="160" width="70" height="32" fill="#2dd4bf" stroke="#ffffff" stroke-width="2"/>
+
+    <rect x="0" y="192" width="70" height="32" fill="#e0f2fe" stroke="#ffffff" stroke-width="2"/>
+    <rect x="70" y="192" width="70" height="32" fill="#e0f2fe" stroke="#ffffff" stroke-width="2"/>
+    <rect x="140" y="192" width="70" height="32" fill="#bae6fd" stroke="#ffffff" stroke-width="2"/>
+    <rect x="210" y="192" width="70" height="32" fill="#bae6fd" stroke="#ffffff" stroke-width="2"/>
+    <rect x="280" y="192" width="70" height="32" fill="#7dd3fc" stroke="#ffffff" stroke-width="2"/>
+    <rect x="350" y="192" width="70" height="32" fill="#7dd3fc" stroke="#ffffff" stroke-width="2"/>
+    <rect x="420" y="192" width="70" height="32" fill="#67e8f9" stroke="#ffffff" stroke-width="2"/>
+    <rect x="490" y="192" width="70" height="32" fill="#67e8f9" stroke="#ffffff" stroke-width="2"/>
+
+    <rect x="0" y="224" width="70" height="32" fill="#f0f9ff" stroke="#ffffff" stroke-width="2"/>
+    <rect x="70" y="224" width="70" height="32" fill="#f0f9ff" stroke="#ffffff" stroke-width="2"/>
+    <rect x="140" y="224" width="70" height="32" fill="#e0f2fe" stroke="#ffffff" stroke-width="2"/>
+    <rect x="210" y="224" width="70" height="32" fill="#e0f2fe" stroke="#ffffff" stroke-width="2"/>
+    <rect x="280" y="224" width="70" height="32" fill="#bae6fd" stroke="#ffffff" stroke-width="2"/>
+    <rect x="350" y="224" width="70" height="32" fill="#bae6fd" stroke="#ffffff" stroke-width="2"/>
+    <rect x="420" y="224" width="70" height="32" fill="#7dd3fc" stroke="#ffffff" stroke-width="2"/>
+    <rect x="490" y="224" width="70" height="32" fill="#7dd3fc" stroke="#ffffff" stroke-width="2"/>
+
+    <path d="M210 64 H560 V128 H350 V96 H210 Z" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="8 6"/>
+    <circle cx="2" cy="254" r="10" fill="#0f172a" stroke="#ffffff" stroke-width="3"/>
+    <text class="cn tick" x="18" y="248">当前</text>
+    <rect x="522" y="4" width="24" height="24" fill="none" stroke="#064e3b" stroke-width="5"/>
+    <text class="cn tick" x="390" y="25" fill="#064e3b">最高响应</text>
+  </g>
+
+  <text class="cn tick" x="160" y="636">0.006</text>
+  <text class="cn tick" x="696" y="636">10</text>
+  <text class="cn tick" x="132" y="612">0.006</text>
+  <text class="cn tick" x="142" y="368">0.4</text>
+
+  <rect x="876" y="300" width="326" height="374" rx="12" fill="#f8fafc" stroke="#c7dce5"/>
+  <text class="cn panel-title" x="906" y="334">颜色分段</text>
+  <g transform="translate(906,365)">
+    <rect x="0" y="0" width="36" height="22" rx="5" fill="#e0f2fe" stroke="#c7dce5"/>
+    <text class="cn small" x="52" y="17">0.0-0.3 低响应</text>
+    <rect x="0" y="44" width="36" height="22" rx="5" fill="#7dd3fc" stroke="#c7dce5"/>
+    <text class="cn small" x="52" y="61">0.3-0.5 中低响应</text>
+    <rect x="0" y="88" width="36" height="22" rx="5" fill="#2dd4bf" stroke="#c7dce5"/>
+    <text class="cn small" x="52" y="105">0.5-0.65 中等响应</text>
+    <rect x="0" y="132" width="36" height="22" rx="5" fill="#a3e635" stroke="#c7dce5"/>
+    <text class="cn small" x="52" y="149">≥0.65 候选阈值</text>
+    <rect x="0" y="176" width="36" height="22" rx="5" fill="#15803d" stroke="#c7dce5"/>
+    <text class="cn small" x="52" y="193">接近 1.0 高响应</text>
+  </g>
+  <text class="cn small" x="906" y="612">候选阈值仅用于模型筛选，</text>
+  <text class="cn small" x="906" y="638">不代表临床疗效判断标准。</text>
+
+  <g transform="translate(78,696)">
+    <text class="cn small" x="0" y="0">0.0</text>
+    <rect x="42" y="-14" width="702" height="14" rx="7" fill="url(#legendGrad)"/>
+    <text class="cn small" x="238" y="22">0.3</text>
+    <text class="cn small" x="386" y="22">0.5</text>
+    <line x1="498" y1="-22" x2="498" y2="8" stroke="#0f766e" stroke-width="3"/>
+    <text class="cn small" x="468" y="36" fill="#0f766e">0.65 候选阈值</text>
+    <text class="cn small" x="734" y="22">1.0</text>
+  </g>
+
+  <rect x="76" y="732" width="1126" height="44" rx="10" fill="#ecfdf5" stroke="#bbf7d0"/>
+  <text class="cn sub" x="98" y="761" fill="#14532d">结论：当前剂量预测响应较低，扫描范围内存在更高响应区域，可作为后续剂量探索参考。</text>
+</svg>

@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DOSEPATHSYN 肿瘤联合治疗剂量-机制解释系统</title>
+    <link rel="stylesheet" href="/styles.css?v=20260526-ui71" />
+  </head>
+  <body>
+    <header class="system-header">
+      <div class="brand-block">
+        <div class="brand-mark">
+          <p class="brand-name">DOSEPATHSYN</p>
+          <img class="brand-logo" src="/assets/dosepathsyn-logo.svg" alt="DOSEPATHSYN logo" />
+        </div>
+        <div class="brand-copy">
+          <h1>肿瘤联合治疗剂量-机制解释系统</h1>
+          <p class="platform-subtitle">面向抗癌药物组合响应预测、剂量分析与机制解释的科研分析平台</p>
+        </div>
+      </div>
+      <div class="header-actions" aria-label="系统状态">
+        <button id="helpBtn" class="toolbar-button" type="button">帮助说明</button>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <aside class="control-panel">
+        <div class="control-title">
+          <p class="eyebrow">Analysis Setup</p>
+          <h2>分析条件</h2>
+        </div>
+
+        <section class="panel-block">
+          <h3>药物组合</h3>
+          <label>药物 A
+            <select id="drugA"></select>
+          </label>
+          <label>药物 B
+            <select id="drugB"></select>
+          </label>
+        </section>
+
+        <section class="panel-block">
+          <h3>细胞背景</h3>
+          <label>细胞系
+            <select id="cellLine"></select>
+          </label>
+        </section>
+
+        <section class="panel-block">
+          <h3>剂量设置</h3>
+          <div class="dose-row">
+            <label>剂量 A (uM)
+              <input id="doseA" type="number" min="0" step="0.0001" value="0.2" />
+            </label>
+            <input id="doseASlider" type="range" min="0.0001" max="10" step="0.0001" value="0.2" />
+          </div>
+          <div class="dose-row">
+            <label>剂量 B (uM)
+              <input id="doseB" type="number" min="0" step="0.0001" value="1.15" />
+            </label>
+            <input id="doseBSlider" type="range" min="0.0001" max="10" step="0.0001" value="1.15" />
+          </div>
+        </section>
+
+        <section class="panel-block">
+          <h3>分析模块</h3>
+          <label class="check-row">
+            <input id="includePathway" type="checkbox" checked />
+            <span>生成 VNN 通路</span>
+          </label>
+          <label class="check-row">
+            <input id="includeFragments" type="checkbox" checked />
+            <span>生成结构贡献</span>
+          </label>
+        </section>
+
+        <section class="panel-actions">
+          <button id="analyzeBtn" class="primary-btn" type="button">开始智能分析</button>
+          <button id="exampleBtn" class="secondary-btn" type="button">载入示例组合</button>
+          <button id="resetBtn" class="ghost-btn" type="button">重置输入</button>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <nav class="tabbar" aria-label="分析模块导航">
+          <button class="tab-button active" type="button" data-tab="overview">预测总览</button>
+          <button class="tab-button" type="button" data-tab="fragments">结构贡献</button>
+          <button class="tab-button" type="button" data-tab="pathway">通路机制</button>
+          <button class="tab-button" type="button" data-tab="report">分析报告</button>
+        </nav>
+
+        <section id="tab-overview" class="tab-panel active">
+          <article class="module overview-dashboard wide-module">
+            <div class="overview-grid">
+              <div class="overview-column">
+                <section class="overview-card response-gauge-card">
+                  <div class="response-card-title">
+                    <h3>联合治疗响应预测</h3>
+                  </div>
+                  <div class="gauge-ring" id="responseGauge">
+                    <div class="gauge-core">
+                      <span>综合响应</span>
+                      <strong id="finalScore">--</strong>
+                    </div>
+                  </div>
+                  <b id="responseLevel" class="response-level-pill">等待输入</b>
+                  <div class="confidence-block">
+                    <div class="confidence-head">
+                      <span>数据覆盖可信度</span>
+                      <b id="confidenceScore">--</b>
+                    </div>
+                    <div class="confidence-track"><i id="confidenceBar"></i></div>
+                  </div>
+                  <div class="overview-metric-strip">
+                    <div>
+                      <span>综合响应评分</span>
+                      <b id="hpbScore">--</b>
+                    </div>
+                    <div>
+                      <span>剂量依赖交互评分</span>
+                      <b id="idbScore">--</b>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="overview-card contribution-card">
+                  <div class="overview-card-head">
+                    <h3>联合响应贡献分解</h3>
+                  </div>
+                  <div class="branch-bars">
+                    <div>
+                      <span>药物 A 相对作用贡献</span>
+                      <div class="bar"><i id="theta1Bar"></i></div>
+                      <b id="theta1Text">--</b>
+                    </div>
+                    <div>
+                      <span>药物 B 相对作用贡献</span>
+                      <div class="bar amber"><i id="theta2Bar"></i></div>
+                      <b id="theta2Text">--</b>
+                    </div>
+                    <div>
+                      <span>剂量交互效应</span>
+                      <div class="bar red"><i id="epsilonBar"></i></div>
+                      <b id="epsilonText">--</b>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="overview-column">
+                <section class="overview-card overview-dose-card">
+                  <div class="overview-card-head">
+                    <div>
+                      <h3>剂量响应分析</h3>
+                    </div>
+                  </div>
+                  <div class="dose-insights">
+                    <div><span>当前剂量预测响应</span><b id="doseCurrentScore">--</b></div>
+                    <div><span>最高预测响应</span><b id="doseBestScore">--</b></div>
+                    <div><span>响应提升幅度</span><b id="doseImprovement">--</b></div>
+                    <div><span>高响应候选点</span><b id="doseHighRegion">--</b></div>
+                  </div>
+                  <div class="dose-visual-row">
+                    <div class="dose-heatmap-panel">
+                      <p class="dose-scan-scope">数据覆盖剂量范围内响应扫描</p>
+                      <canvas id="doseCanvas" width="760" height="480"></canvas>
+                      <p id="doseRangeWarning" class="dose-range-warning hidden"><span>!</span>当前输入剂量超出数据覆盖扫描范围，预测结果属于剂量外推，需谨慎解释。</p>
+                    </div>
+                    <aside class="dose-color-panel">
+                      <h4>预测响应区间</h4>
+                      <div class="dose-gradient-scale" aria-label="热图颜色渐变刻度说明">
+                        <div class="dose-gradient-bar"><span class="dose-threshold-marker"></span></div>
+                        <div class="dose-gradient-labels">
+                          <span class="scale-high">1.0 高响应</span>
+                          <span class="scale-strong">0.8</span>
+                          <span class="scale-threshold">0.65 候选阈值</span>
+                          <span class="scale-mid">0.5</span>
+                          <span class="scale-lowmid">0.3</span>
+                          <span class="scale-low">0.0 低响应</span>
+                        </div>
+                      </div>
+                      <p id="doseSummary" class="small-note dose-threshold-note">候选阈值仅用于模型筛选，不代表临床疗效判断标准。</p>
+                    </aside>
+                  </div>
+                  <p id="doseConclusion" class="analysis-conclusion">结论：完成分析后，将显示剂量响应结论。</p>
+                </section>
+
+                <section class="overview-card evidence-card">
+                  <div class="overview-card-head">
+                    <h3>结果说明</h3>
+                  </div>
+                  <div id="evidenceTags" class="evidence-tags">
+                    <span class="evidence-tag muted">等待分析</span>
+                  </div>
+                  <ul id="medicalSummary" class="medical-summary evidence-points">
+                    <li>请选择药物、细胞系和剂量后开始分析。</li>
+                  </ul>
+                  <div id="warnings" class="warning-list"></div>
+                </section>
+              </div>
+              <section class="overview-research-statement">
+                <b>科研用途声明</b>
+                <span>本系统仅用于科研分析、候选组合筛选和机制假设生成，不构成临床诊疗建议。所有预测结果需经独立实验验证。</span>
+              </section>
+            </div>
+          </article>
+        </section>
+
+        <section id="tab-fragments" class="tab-panel">
+          <article class="module fragment-module wide-module">
+            <div class="module-head">
+              <div>
+                <p class="section-kicker">Molecular Explanation</p>
+                <h2>结构贡献分析</h2>
+              </div>
+            </div>
+            <div class="module-note">
+              <b>预测敏感子结构</b>
+              <ul class="module-note-points">
+                <li>系统按扰动后对预测响应的绝对影响强度排序，展示每个药物的前三个敏感片段。</li>
+                <li>红色为正向贡献，蓝色为负向贡献；颜色越深、条形越长，表示扰动影响越强。</li>
+                <li>结果用于解释模型的关注区域，不等同于已验证药效团。</li>
+              </ul>
+            </div>
+            <div id="fragmentArea" class="fragment-area empty">等待结构贡献结果。</div>
+          </article>
+        </section>
+
+        <section id="tab-pathway" class="tab-panel">
+          <article class="module pathway-module wide-module">
+            <div class="module-head">
+              <div>
+                <p class="section-kicker">VNN Mechanism</p>
+                <h2>通路机制分析</h2>
+              </div>
+            </div>
+            <p id="pathwaySummary" class="module-note">本模块用于展示模型在当前药物组合预测中关注的高贡献生物过程，并将关键基因特征、GO 功能节点与预测响应进行关联。通路结果为模型解释线索，不等同于已验证作用机制。</p>
+            <div class="mechanism-grid">
+              <section class="mechanism-card">
+                <h3>高贡献生物过程</h3>
+                <div id="pathwayBars" class="pathway-bars empty">等待 VNN 通路结果。</div>
+              </section>
+              <section class="mechanism-card">
+                <h3>机制解释摘要</h3>
+                <div id="pathwayNarrative" class="mechanism-summary-blocks">
+                  <section><b>模型提示</b><p>完成分析后，将展示模型归因得到的主要通路节点和机制假设。</p></section>
+                </div>
+              </section>
+            </div>
+            <h3 class="subsection-title">VNN传播路径</h3>
+            <svg id="sankeySvg" viewBox="0 0 1240 540" role="img" aria-label="VNN pathway sankey"></svg>
+            <h3 class="subsection-title">GO 术语解释与生物学含义</h3>
+            <div id="pathwayExplainTable" class="pathway-explain-table empty">等待 VNN 通路结果。</div>
+            <div id="pathwayList" class="pathway-list"></div>
+            <div class="pathway-disclaimer">通路解释为模型生成的机制假设，需结合具体基因、文献证据和实验结果进一步验证。</div>
+          </article>
+        </section>
+
+        <section id="tab-report" class="tab-panel">
+          <article class="module report-module wide-module">
+            <div class="module-head">
+              <div>
+                <p class="section-kicker">Export</p>
+                <h2>分析报告</h2>
+              </div>
+              <span id="reportStatusBadge">报告状态：待生成</span>
+            </div>
+            <p id="reportState" class="module-note">完成一次分析后，系统将生成包含预测结果、剂量响应、结构贡献、通路机制和科研用途声明的报告草稿。</p>
+            <div id="reportPreview" class="report-preview">
+              <div><span>报告对象</span><b>待分析</b></div>
+              <div><span>细胞背景</span><b>待分析</b></div>
+              <div><span>预测结论</span><b>待分析</b></div>
+              <div><span>通路机制</span><b>待分析</b></div>
+            </div>
+            <div class="report-layout">
+              <section class="report-summary-card">
+                <h3>报告摘要</h3>
+                <ul id="reportSummaryText" class="report-summary-points">
+                  <li>完成分析后，将自动生成当前组合的预测结论、剂量解释、结构贡献和通路机制摘要。</li>
+                </ul>
+              </section>
+              <section class="report-export-card">
+                <h3>导出操作</h3>
+                <p>打开完整 HTML 报告，或复制当前页面生成的报告摘要用于记录和汇报。</p>
+                <div class="report-actions">
+                  <a id="reportPanelLink" class="primary-report-link disabled" href="#" target="_blank" aria-disabled="true">打开完整分析报告</a>
+                  <button id="copyReportSummaryBtn" class="secondary-btn report-copy-btn" type="button" disabled>复制报告摘要</button>
+                </div>
+              </section>
+              <section class="report-content-card">
+                <h3>已包含内容</h3>
+                <ul class="report-list">
+                  <li><span class="report-check" aria-hidden="true"></span>分析条件与输入剂量</li>
+                  <li><span class="report-check" aria-hidden="true"></span>联合治疗响应预测与数据覆盖可信度</li>
+                  <li><span class="report-check" aria-hidden="true"></span>剂量响应分析与候选区域说明</li>
+                  <li><span class="report-check" aria-hidden="true"></span>结构贡献与医学支持说明</li>
+                  <li><span class="report-check" aria-hidden="true"></span>VNN 通路机制解释</li>
+                  <li><span class="report-check" aria-hidden="true"></span>科研用途声明与解释边界</li>
+                </ul>
+              </section>
+            </div>
+            <div class="report-research-statement">
+              <b>科研用途声明</b>
+              <span>本报告仅用于科研分析、候选组合筛选和机制假设生成，不构成临床诊疗建议。所有预测结果需经独立实验验证。</span>
+            </div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <div id="helpModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <div class="modal-panel">
+        <div class="modal-head">
+          <div>
+            <p class="section-kicker">Help</p>
+            <h2 id="helpTitle">帮助说明</h2>
+          </div>
+          <button id="closeHelpBtn" class="icon-button" type="button" aria-label="关闭帮助说明">×</button>
+        </div>
+        <div class="help-grid">
+          <section>
+            <h3>系统用途</h3>
+            <p>用于肿瘤联合用药候选组合筛选、剂量响应探索和模型机制假设生成。</p>
+          </section>
+          <section>
+            <h3>输入说明</h3>
+            <p>选择药物 A、药物 B、细胞系和剂量后点击开始智能分析。建议优先使用系统已加载的数据范围内组合。</p>
+          </section>
+          <section>
+            <h3>评分解释</h3>
+            <p>联合治疗响应预测表示模型预测响应强度；综合响应评分反映主预测分支结果；剂量依赖交互评分描述当前剂量组合的交互影响；数据覆盖可信度反映当前输入与训练数据覆盖程度。</p>
+          </section>
+          <section>
+            <h3>结果边界</h3>
+            <p>本系统仅用于科研分析、候选组合筛选和机制假设生成，不构成临床诊疗建议。所有预测结果需经独立实验验证。</p>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div id="loading" class="loading hidden">
+      <div class="loading-card">
+        <div class="loader"></div>
+        <p>模型正在推理并生成解释结果，请稍候...</p>
+      </div>
+    </div>
+
+    <script src="/config.js?v=20260610"></script>
+    <script src="/app.js?v=20260526-ui71"></script>
+  </body>
+</html>

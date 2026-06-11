@@ -1,0 +1,104 @@
+<svg width="420" height="420" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">DOSEPATHSYN targeted oncology logo</title>
+  <desc id="desc">Blue circular oncology logo with tumor targeting crosshair, drug capsule and dose particles.</desc>
+  <defs>
+    <radialGradient id="discGrad" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#075aa3"/>
+      <stop offset="58%" stop-color="#06346c"/>
+      <stop offset="100%" stop-color="#041d46"/>
+    </radialGradient>
+    <linearGradient id="ringGrad" x1="67" y1="84" x2="339" y2="348" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0d64e8"/>
+      <stop offset="0.48" stop-color="#119be9"/>
+      <stop offset="1" stop-color="#23d5e3"/>
+    </linearGradient>
+    <linearGradient id="swooshGrad" x1="170" y1="278" x2="320" y2="202" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#084bcd" stop-opacity="0"/>
+      <stop offset="0.48" stop-color="#1497f3"/>
+      <stop offset="1" stop-color="#9ef9ff"/>
+    </linearGradient>
+    <radialGradient id="tumorGrad" cx="53%" cy="48%" r="56%">
+      <stop offset="0%" stop-color="#e5fbff"/>
+      <stop offset="20%" stop-color="#1697f3"/>
+      <stop offset="62%" stop-color="#0b61d9"/>
+      <stop offset="100%" stop-color="#083783"/>
+    </radialGradient>
+    <filter id="glow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="3.2" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.04 0 0 0 0 0.58 0 0 0 0 1 0 0 0 0.42 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow" x="-22%" y="-22%" width="144%" height="144%">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#083a7a" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <circle cx="210" cy="210" r="140" fill="url(#discGrad)" filter="url(#shadow)"/>
+  <circle cx="210" cy="210" r="151" fill="none" stroke="#ffffff" stroke-width="11"/>
+  <path d="M83 209A127 127 0 01209 83" fill="none" stroke="url(#ringGrad)" stroke-width="15" stroke-linecap="butt"/>
+  <path d="M222 83a127 127 0 01115 126" fill="none" stroke="url(#ringGrad)" stroke-width="15" stroke-linecap="butt"/>
+  <path d="M337 222a127 127 0 01-115 115" fill="none" stroke="url(#ringGrad)" stroke-width="15" stroke-linecap="butt"/>
+  <path d="M209 337A127 127 0 0183 222" fill="none" stroke="url(#ringGrad)" stroke-width="15" stroke-linecap="butt"/>
+
+  <g filter="url(#glow)">
+    <path d="M188 283c61-3 109-29 134-82" fill="none" stroke="url(#swooshGrad)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M178 305c71-5 130-35 166-102" fill="none" stroke="#2dbffc" stroke-width="5" stroke-linecap="round" opacity="0.62"/>
+  </g>
+
+  <g transform="translate(118 148)" filter="url(#glow)">
+    <circle cx="68" cy="68" r="55" fill="none" stroke="#ffffff" stroke-width="7"/>
+    <circle cx="68" cy="68" r="24" fill="none" stroke="#ffffff" stroke-width="7"/>
+    <path d="M68-6v75M68 92v50M-6 68h76M92 68h75" stroke="#ffffff" stroke-width="7" stroke-linecap="square"/>
+    <circle cx="68" cy="68" r="36" fill="url(#tumorGrad)"/>
+    <path d="M35 69c0-20 12-35 33-37 20-1 36 14 37 34 1 22-14 39-36 39-20 0-34-15-34-36z" fill="none" stroke="#6ee9ff" stroke-width="5" opacity="0.92"/>
+    <g fill="#0e72d9" opacity="0.9">
+      <circle cx="45" cy="53" r="8"/>
+      <circle cx="64" cy="45" r="7"/>
+      <circle cx="84" cy="55" r="9"/>
+      <circle cx="45" cy="78" r="8"/>
+      <circle cx="72" cy="82" r="10"/>
+      <circle cx="94" cy="78" r="7"/>
+      <circle cx="60" cy="101" r="8"/>
+    </g>
+    <circle cx="68" cy="68" r="12" fill="#0f4fb8"/>
+    <circle cx="92" cy="68" r="6" fill="#dffbff"/>
+  </g>
+
+  <g filter="url(#glow)">
+    <path d="M222 213c13 0 21-13 34-13" fill="none" stroke="#dffbff" stroke-width="7" stroke-linecap="round"/>
+    <g fill="#b9f3ff">
+      <circle cx="232" cy="208" r="4"/>
+      <circle cx="246" cy="201" r="5"/>
+      <circle cx="260" cy="194" r="5"/>
+      <circle cx="274" cy="185" r="4"/>
+      <circle cx="289" cy="177" r="5"/>
+      <circle cx="304" cy="166" r="6"/>
+      <circle cx="318" cy="153" r="7"/>
+    </g>
+    <g fill="#43c9ff" opacity="0.95">
+      <circle cx="252" cy="221" r="5"/>
+      <circle cx="269" cy="216" r="4"/>
+      <circle cx="286" cy="208" r="5"/>
+      <circle cx="303" cy="198" r="4"/>
+      <circle cx="319" cy="186" r="5"/>
+      <circle cx="332" cy="171" r="4"/>
+      <circle cx="341" cy="154" r="5"/>
+    </g>
+    <g fill="#20aef5" opacity="0.75">
+      <circle cx="285" cy="227" r="4"/>
+      <circle cx="300" cy="220" r="4"/>
+      <circle cx="316" cy="209" r="4"/>
+      <circle cx="330" cy="194" r="4"/>
+      <circle cx="339" cy="178" r="4"/>
+    </g>
+  </g>
+
+  <g transform="translate(278 116) rotate(-45)" filter="url(#glow)">
+    <rect x="-13" y="-4" width="38" height="74" rx="18" fill="#d9fbff" opacity="0.94"/>
+    <path d="M-13 33h38v19a18 18 0 01-18 18h-2a18 18 0 01-18-18z" fill="#125bc7"/>
+    <rect x="-13" y="-4" width="38" height="74" rx="18" fill="none" stroke="#a8f7ff" stroke-width="4"/>
+  </g>
+</svg>

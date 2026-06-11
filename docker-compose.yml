@@ -1,0 +1,10 @@
+services:
+  decodosenet-therapy-web:
+    build: .
+    container_name: decodosenet-therapy-web
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./generated:/app/generated
