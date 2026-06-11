@@ -28,3 +28,5 @@ Thumbs.db
 *.pt
 *.pth
 *.bin
+!model_assets/**/*.pt
+!model_assets/**/*.bin
