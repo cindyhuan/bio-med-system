@@ -24,6 +24,10 @@ Start the FastAPI service from the project root:
 uvicorn backend.app:app --host 0.0.0.0 --port 8000
 ```
 
+The backend defaults to a low-memory `lite` analysis mode for free cloud
+instances. Set `ANALYSIS_MODE=full` only on a machine with enough memory to run
+fragment perturbation and VNN pathway attribution.
+
 Then open:
 
 ```text

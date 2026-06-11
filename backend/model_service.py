@@ -17,6 +17,8 @@ APP_ROOT = Path(__file__).resolve().parents[1]
 ASSET_DIR = APP_ROOT / "model_assets"
 GENERATED_DIR = APP_ROOT / "generated"
 
+torch.set_num_threads(1)
+
 
 def _find_col(df, candidates, required=True):
     for candidate in candidates:

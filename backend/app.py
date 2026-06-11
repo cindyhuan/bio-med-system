@@ -1,3 +1,5 @@
+import gc
+import os
 from typing import Optional
 
 import uvicorn
@@ -16,6 +18,8 @@ except ImportError:
 
 
 FRONTEND_DIR = APP_ROOT / "frontend"
+ANALYSIS_MODE = os.getenv("ANALYSIS_MODE", "lite").lower()
+FULL_ANALYSIS = ANALYSIS_MODE == "full"
 
 
 class AnalyzeRequest(BaseModel):
@@ -78,6 +82,7 @@ def health():
         "device": service.checkpoint_meta["device"],
         "modelEpoch": service.checkpoint_meta.get("epoch"),
         "assets": "loaded",
+        "analysisMode": ANALYSIS_MODE,
     }
 
 
@@ -93,6 +98,9 @@ def options():
 def analyze(req: AnalyzeRequest):
     try:
         service = get_service()
+        grid_size = req.gridSize if FULL_ANALYSIS else min(req.gridSize, 5)
+        include_fragments = req.includeFragments and FULL_ANALYSIS
+        include_pathway = req.includePathway and FULL_ANALYSIS
         prediction, _, _ = service.predict(
             req.drugA,
             req.drugB,
@@ -102,11 +110,13 @@ def analyze(req: AnalyzeRequest):
             smiles_a=req.smilesA,
             smiles_b=req.smilesB,
         )
-        dose = dose_scan(service, req.drugA, req.drugB, req.cellLine, req.doseA, req.doseB, req.gridSize)
-        fragments = fragment_analysis(service, req.drugA, req.drugB, req.cellLine, req.doseA, req.doseB) if req.includeFragments else None
-        pathway = pathway_sankey(service, req.drugA, req.drugB, req.cellLine, req.doseA, req.doseB) if req.includePathway else None
+        dose = dose_scan(service, req.drugA, req.drugB, req.cellLine, req.doseA, req.doseB, grid_size)
+        fragments = fragment_analysis(service, req.drugA, req.drugB, req.cellLine, req.doseA, req.doseB) if include_fragments else None
+        pathway = pathway_sankey(service, req.drugA, req.drugB, req.cellLine, req.doseA, req.doseB) if include_pathway else None
         warnings = service.warnings_for(req.drugA, req.drugB, req.cellLine, req.doseA, req.doseB, prediction)
         payload = {
+            "analysisMode": ANALYSIS_MODE,
+            "disabledModules": [] if FULL_ANALYSIS else ["fragmentAnalysis", "pathwayAnalysis"],
             "input": {
                 "drugA": req.drugA,
                 "drugB": req.drugB,
@@ -122,8 +132,10 @@ def analyze(req: AnalyzeRequest):
             "medicalSummary": medical_summary(req.drugA, req.drugB, req.cellLine, req.doseA, req.doseB, prediction, warnings),
         }
         payload["reportUrl"] = make_report(payload)
+        gc.collect()
         return payload
     except Exception as exc:
+        gc.collect()
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 
