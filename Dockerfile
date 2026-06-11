@@ -2,6 +2,7 @@ FROM python:3.10-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV ANALYSIS_MODE=full
 
 WORKDIR /app
 
@@ -20,7 +21,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 COPY backend /app/backend
 COPY frontend /app/frontend
 COPY model_assets /app/model_assets
-COPY generated /app/generated
+RUN mkdir -p /app/generated/reports
 
 EXPOSE 8000
 

@@ -1,3 +1,9 @@
+---
+title: Bio Med API
+sdk: docker
+app_port: 8000
+---
+
 # DosePathSyn Web System
 
 This repository is organized for public deployment:
